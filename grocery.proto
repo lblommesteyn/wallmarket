@@ -3,18 +3,21 @@ syntax = "proto3";
 package grocery;
 
 service Grocery{
-  // A simple RPC.
-  //
-  // Obtains the MessageResponse at a given position.
- rpc GetServerResponse(Message) returns (MessageResponse) {}
-
+  rpc GetProducts(Query) returns (Results);
 }
 
-message Message{
- string message = 1;
+message Query{
+  string search_term = 1;
 }
 
-message MessageResponse{
- string message = 1;
- bool received = 2;
+message Results{
+  message Product {
+    string name = 1;
+    string id = 2;
+    string description = 3;
+    string image = 4;
+    float price = 5;
+  };
+
+  repeated Product products = 4;
 }
