@@ -14,21 +14,18 @@ class GroceryStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetServerResponse = channel.unary_unary(
-                '/grocery.Grocery/GetServerResponse',
-                request_serializer=grocery__pb2.Message.SerializeToString,
-                response_deserializer=grocery__pb2.MessageResponse.FromString,
+        self.GetProducts = channel.unary_unary(
+                '/grocery.Grocery/GetProducts',
+                request_serializer=grocery__pb2.Query.SerializeToString,
+                response_deserializer=grocery__pb2.Results.FromString,
                 )
 
 
 class GroceryServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetServerResponse(self, request, context):
-        """A simple RPC.
-
-        Obtains the MessageResponse at a given position.
-        """
+    def GetProducts(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -36,10 +33,10 @@ class GroceryServicer(object):
 
 def add_GroceryServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetServerResponse': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetServerResponse,
-                    request_deserializer=grocery__pb2.Message.FromString,
-                    response_serializer=grocery__pb2.MessageResponse.SerializeToString,
+            'GetProducts': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetProducts,
+                    request_deserializer=grocery__pb2.Query.FromString,
+                    response_serializer=grocery__pb2.Results.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -52,7 +49,7 @@ class Grocery(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetServerResponse(request,
+    def GetProducts(request,
             target,
             options=(),
             channel_credentials=None,
@@ -62,8 +59,8 @@ class Grocery(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/grocery.Grocery/GetServerResponse',
-            grocery__pb2.Message.SerializeToString,
-            grocery__pb2.MessageResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/grocery.Grocery/GetProducts',
+            grocery__pb2.Query.SerializeToString,
+            grocery__pb2.Results.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
