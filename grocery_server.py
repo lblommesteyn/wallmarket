@@ -1,23 +1,30 @@
 import grpc
 from concurrent import futures
-import time
-import grocery.grocery_pb2_grpc as pb2_grpc
-import grocery.grocery_pb2 as pb2
+import grocery_pb2_grpc as pb2_grpc
+import grocery_pb2 as pb2
+from product_finder import ProductFinder
 
 
 class GroceryService(pb2_grpc.GroceryServicer):
 
     def __init__(self, *args, **kwargs):
-        pass
+        self.p = ProductFinder()
 
-    def GetServerResponse(self, request, context):
+    def GetProducts(self, request, context):
+        search_term = request.search_term
+        self.p.search(search_term)
 
-        # get the string from the incoming request
-        message = request.message
-        result = f'Hello I am up and running received "{message}" message from you'
-        result = {'message': result, 'received': True}
+        result = pb2.Results()
 
-        return pb2.MessageResponse(**result)
+        for product in self.p.products.values():
+            new_product = result.products.add()
+            new_product.name = product.name
+            new_product.id = product.id
+            new_product.description = product.description
+            new_product.image = product.image
+            new_product.price = product.price
+
+        return result
 
 
 def serve():
