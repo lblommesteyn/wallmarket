@@ -14,34 +14,45 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rgrocery.proto\x12\x07grocery\"\x1a\n\x07Message\x12\x0f\n\x07message\x18\x01 \x01(\t\"4\n\x0fMessageResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\x12\x10\n\x08received\x18\x02 \x01(\x08\x32L\n\x07Grocery\x12\x41\n\x11GetServerResponse\x12\x10.grocery.Message\x1a\x18.grocery.MessageResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rgrocery.proto\x12\x07grocery\"\x1c\n\x05Query\x12\x13\n\x0bsearch_term\x18\x01 \x01(\t\"\x8d\x01\n\x07Results\x12*\n\x08products\x18\x04 \x03(\x0b\x32\x18.grocery.Results.Product\x1aV\n\x07Product\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\r\n\x05image\x18\x04 \x01(\t\x12\r\n\x05price\x18\x05 \x01(\x02\x32:\n\x07Grocery\x12/\n\x0bGetProducts\x12\x0e.grocery.Query\x1a\x10.grocery.Resultsb\x06proto3')
 
 
 
-_MESSAGE = DESCRIPTOR.message_types_by_name['Message']
-_MESSAGERESPONSE = DESCRIPTOR.message_types_by_name['MessageResponse']
-Message = _reflection.GeneratedProtocolMessageType('Message', (_message.Message,), {
-  'DESCRIPTOR' : _MESSAGE,
+_QUERY = DESCRIPTOR.message_types_by_name['Query']
+_RESULTS = DESCRIPTOR.message_types_by_name['Results']
+_RESULTS_PRODUCT = _RESULTS.nested_types_by_name['Product']
+Query = _reflection.GeneratedProtocolMessageType('Query', (_message.Message,), {
+  'DESCRIPTOR' : _QUERY,
   '__module__' : 'grocery_pb2'
-  # @@protoc_insertion_point(class_scope:grocery.Message)
+  # @@protoc_insertion_point(class_scope:grocery.Query)
   })
-_sym_db.RegisterMessage(Message)
+_sym_db.RegisterMessage(Query)
 
-MessageResponse = _reflection.GeneratedProtocolMessageType('MessageResponse', (_message.Message,), {
-  'DESCRIPTOR' : _MESSAGERESPONSE,
+Results = _reflection.GeneratedProtocolMessageType('Results', (_message.Message,), {
+
+  'Product' : _reflection.GeneratedProtocolMessageType('Product', (_message.Message,), {
+    'DESCRIPTOR' : _RESULTS_PRODUCT,
+    '__module__' : 'grocery_pb2'
+    # @@protoc_insertion_point(class_scope:grocery.Results.Product)
+    })
+  ,
+  'DESCRIPTOR' : _RESULTS,
   '__module__' : 'grocery_pb2'
-  # @@protoc_insertion_point(class_scope:grocery.MessageResponse)
+  # @@protoc_insertion_point(class_scope:grocery.Results)
   })
-_sym_db.RegisterMessage(MessageResponse)
+_sym_db.RegisterMessage(Results)
+_sym_db.RegisterMessage(Results.Product)
 
 _GROCERY = DESCRIPTOR.services_by_name['Grocery']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _MESSAGE._serialized_start=26
-  _MESSAGE._serialized_end=52
-  _MESSAGERESPONSE._serialized_start=54
-  _MESSAGERESPONSE._serialized_end=106
-  _GROCERY._serialized_start=108
-  _GROCERY._serialized_end=184
+  _QUERY._serialized_start=26
+  _QUERY._serialized_end=54
+  _RESULTS._serialized_start=57
+  _RESULTS._serialized_end=198
+  _RESULTS_PRODUCT._serialized_start=112
+  _RESULTS_PRODUCT._serialized_end=198
+  _GROCERY._serialized_start=200
+  _GROCERY._serialized_end=258
 # @@protoc_insertion_point(module_scope)
