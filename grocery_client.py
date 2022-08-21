@@ -1,6 +1,6 @@
 import grpc
-import grocery.grocery_pb2_grpc as pb2_grpc
-import grocery.grocery_pb2 as pb2
+import grocery_pb2_grpc as pb2_grpc
+import grocery_pb2 as pb2
 
 
 class GroceryClient(object):
@@ -19,16 +19,15 @@ class GroceryClient(object):
         # bind the client and the server
         self.stub = pb2_grpc.GroceryStub(self.channel)
 
-    def get_url(self, message):
+    def get_url(self, search_term):
         """
         Client function to call the rpc for GetServerResponse
         """
-        message = pb2.Message(message=message)
-        print(f'{message}')
-        return self.stub.GetServerResponse(message)
+        query = pb2.Query(search_term=search_term)
+        return self.stub.GetProducts(query)
 
 
 if __name__ == '__main__':
     client = GroceryClient()
-    result = client.get_url(message="Hello Grocer you there?")
+    result = client.get_url('beef')
     print(f'{result}')
